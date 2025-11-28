@@ -19,13 +19,13 @@ int main() {
         service.encryptFile("netflix_titles.csv", "netflix_titles.enc", passwd);
     } catch (const std::exception& e) {
         std::cerr << "Encryption error: " << e.what() << "\n";
-        return 1;
+        return -1;
     }
 
     // 2) Integrity check
     if (!service.verifyIntegrity("netflix_titles.enc", passwd)) {
         std::cerr << "Integrity FAIL: wrong password or corrupted file.\n";
-        return 2;
+        return -1;
     }
 
     // 3) Decrypt
@@ -33,7 +33,7 @@ int main() {
         service.decryptFile("netflix_titles.enc", "netflix_titles_dec.csv", passwd);
     } catch (const std::exception& e) {
         std::cerr << "Decryption error: " << e.what() << "\n";
-        return 3;
+        return -1;
     }
 
     std::cout << "Done\n";
