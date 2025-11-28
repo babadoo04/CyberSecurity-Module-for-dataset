@@ -33,6 +33,7 @@ target_link_libraries(${PROJECT_NAME} PRIVATE cryptopp::cryptopp)
 
 enable_testing()
 find_package(GTest CONFIG REQUIRED)
+find_package(cryptopp CONFIG REQUIRED)
 
 file(GLOB TESTS 
                 "tests/*.cpp")
@@ -51,6 +52,7 @@ if(TESTS)
         PRIVATE
             GTest::gtest
             GTest::gtest_main
+            cryptopp::cryptopp
     )
 
     add_test(NAME ${PROJECT_NAME}Tests COMMAND ${PROJECT_NAME}Tests)

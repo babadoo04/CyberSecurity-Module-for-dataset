@@ -107,7 +107,7 @@ void securityModule::decryptFile(const std::filesystem::path& in, const std::fil
     const encryptedFile f   = load(in);
     const std::vector<std::uint8_t> key = deriver->deriveKey(pass, f.salt);
 
-    const std::vector<std::uint8_t> pt = cipher->decrypt(f, key); // AEAD перевіряє цілісність
+    const std::vector<std::uint8_t> pt = cipher->decrypt(f, key);
     writeAll(out, pt);
 }
 
