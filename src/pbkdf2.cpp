@@ -21,10 +21,10 @@ std::vector<std::uint8_t> pbkdf2::deriveKey(const std::string &passwd, const std
     return key;
 }
 
-std::size_t pbkdf2::saltSize() const {
+constexpr std::size_t pbkdf2::saltSize() const {
     return saltLen;
 }
 
-std::size_t pbkdf2::keySize() const {
+constexpr std::size_t pbkdf2::keySize() const {
     return keyLen;
 }

@@ -19,14 +19,17 @@ std::vector<std::uint8_t> securityModule::readAll(const std::filesystem::path& p
 
     std::vector<std::uint8_t> data;
     int c = 0;
+    
     while ((c = is.get()) != std::char_traits<char>::eof()) {
         data.push_back(static_cast<std::uint8_t>(c));
     }
+
     return data;
 }
 
 void securityModule::writeAll(const std::filesystem::path& path, const std::vector<std::uint8_t>& data) {
     std::ofstream os(path, std::ios::binary);
+    
     if (!os) {
         throw std::runtime_error("Cannot open output file: " + path.string());
     }
@@ -38,6 +41,7 @@ void securityModule::writeAll(const std::filesystem::path& path, const std::vect
 
 void securityModule::save(const std::filesystem::path& path, const encryptedFile& f) {
     std::ofstream os(path, std::ios::binary);
+    
     if (!os) {
         throw std::runtime_error("Cannot open encrypted file: " + path.string());
     }

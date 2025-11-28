@@ -19,4 +19,4 @@
 #include <cryptopp/aes.h>
 #include <cryptopp/filters.h>
 
-#endif // PCH_HPP
+#endif // !PCH_HPP

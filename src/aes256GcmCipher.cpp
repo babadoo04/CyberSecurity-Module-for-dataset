@@ -3,10 +3,16 @@
 
 encryptedFile aes256GcmCipher::encrypt(const std::vector<std::uint8_t> &plaintext, const std::vector<std::uint8_t> &key,
                                        const std::vector<std::uint8_t> &iv) const {
-    if (key.size() != 32) throw std::runtime_error("GCM: key must be 32 bytes");
-    if (iv.size()  != ivSize()) throw std::runtime_error("GCM: iv must be 12 bytes");
+    if (key.size() != 32) {
+        throw std::runtime_error("GCM: key must be 32 bytes");
+    }
+
+    if (iv.size()  != ivSize()) {
+        throw std::runtime_error("GCM: iv must be 12 bytes");
+    }
 
     CryptoPP::GCM<CryptoPP::AES>::Encryption enc;
+    
     enc.SetKeyWithIV(key.data(), key.size(), iv.data(), iv.size());
 
     encryptedFile out;
@@ -33,10 +39,18 @@ encryptedFile aes256GcmCipher::encrypt(const std::vector<std::uint8_t> &plaintex
 }
 
 std::vector<std::uint8_t> aes256GcmCipher::decrypt(const encryptedFile &file, const std::vector<std::uint8_t> &key) const {
-    if (key.size() != 32) throw std::runtime_error("GCM: key must be 32 bytes");
-    if (file.iv.size()  != ivSize()) throw std::runtime_error("GCM: bad iv");
-    if (file.tag.size() != tagSize()) throw std::runtime_error("GCM: bad tag");
+    if (key.size() != 32) {
+        throw std::runtime_error("GCM: key must be 32 bytes");
+    }
+    
+    if (file.iv.size()  != ivSize()) {
+        throw std::runtime_error("GCM: bad iv");
+    }
 
+    if (file.tag.size() != tagSize()) {
+        throw std::runtime_error("GCM: bad tag");
+    }
+    
     CryptoPP::GCM<CryptoPP::AES>::Decryption dec;
     dec.SetKeyWithIV(key.data(), key.size(), file.iv.data(), file.iv.size());
 
@@ -58,10 +72,10 @@ std::vector<std::uint8_t> aes256GcmCipher::decrypt(const encryptedFile &file, co
     return plaintext;
 }
 
-std::size_t aes256GcmCipher::ivSize() const {
+constexpr std::size_t aes256GcmCipher::ivSize() const {
     return 12;
 }
 
-std::size_t aes256GcmCipher::tagSize() const {
+constexpr std::size_t aes256GcmCipher::tagSize() const {
     return 16;
 }
