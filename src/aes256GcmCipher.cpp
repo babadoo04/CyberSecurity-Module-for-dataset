@@ -1,7 +1,7 @@
 #include "pch.hpp"
 #include "aes256GcmCipher.hpp"
 
-encryptedFile Aes256GcmCipher::encrypt(const std::vector<std::uint8_t> &plaintext, const std::vector<std::uint8_t> &key,
+encryptedFile aes256GcmCipher::encrypt(const std::vector<std::uint8_t> &plaintext, const std::vector<std::uint8_t> &key,
                                        const std::vector<std::uint8_t> &iv) const {
     if (key.size() != 32) throw std::runtime_error("GCM: key must be 32 bytes");
     if (iv.size()  != ivSize()) throw std::runtime_error("GCM: iv must be 12 bytes");
@@ -32,7 +32,7 @@ encryptedFile Aes256GcmCipher::encrypt(const std::vector<std::uint8_t> &plaintex
     return out;
 }
 
-std::vector<std::uint8_t> Aes256GcmCipher::decrypt(const encryptedFile &file, const std::vector<std::uint8_t> &key) const {
+std::vector<std::uint8_t> aes256GcmCipher::decrypt(const encryptedFile &file, const std::vector<std::uint8_t> &key) const {
     if (key.size() != 32) throw std::runtime_error("GCM: key must be 32 bytes");
     if (file.iv.size()  != ivSize()) throw std::runtime_error("GCM: bad iv");
     if (file.tag.size() != tagSize()) throw std::runtime_error("GCM: bad tag");
@@ -58,10 +58,10 @@ std::vector<std::uint8_t> Aes256GcmCipher::decrypt(const encryptedFile &file, co
     return plaintext;
 }
 
-std::size_t Aes256GcmCipher::ivSize() const {
+std::size_t aes256GcmCipher::ivSize() const {
     return 12;
 }
 
-std::size_t Aes256GcmCipher::tagSize() const {
+std::size_t aes256GcmCipher::tagSize() const {
     return 16;
 }

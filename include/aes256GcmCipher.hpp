@@ -3,9 +3,9 @@
 
 #include "IAeadEncryptor.hpp"
 
-class Aes256GcmCipher final : public aeadEncryptor {
+class aes256GcmCipher final : public aeadEncryptor {
 public:
-    ~Aes256GcmCipher() noexcept = default;
+    ~aes256GcmCipher() noexcept = default;
     encryptedFile encrypt(const std::vector<std::uint8_t>& plaintext, const std::vector<std::uint8_t>& key,
                                   const std::vector<std::uint8_t>& iv) const final override;
     
