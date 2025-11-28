@@ -26,6 +26,7 @@ target_precompile_headers(${PROJECT_NAME}
 find_package(cryptopp CONFIG REQUIRED)
 target_link_libraries(${PROJECT_NAME} PRIVATE cryptopp::cryptopp)
 
+
 # ------------------------
 # ==== Google Tests ======
 # ------------------------
